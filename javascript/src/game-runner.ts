@@ -1,27 +1,22 @@
-import {Game} from "./game";
+import { Game } from './game';
 
 export function gameRunner(randomInt) {
+  // a simulator of a game
 
-    // a simulator of a game
+  let winner = false;
 
-    let notAWinner = false;
+  const game = new Game();
 
-    const game = new Game();
+  game.addPlayerCommand('Chet');
+  game.addPlayerCommand('Pat');
+  game.addPlayerCommand('Sue');
 
-    game.add('Chet');
-    game.add('Pat');
-    game.add('Sue');
-
-    do {
-
-        game.roll(randomInt(6));
-
-        if (randomInt(10) == 7) {
-            notAWinner = game.wrongAnswer();
-        } else {
-            notAWinner = game.wasCorrectlyAnswered();
-        }
-
-    } while (notAWinner);
-};
-
+  if (!game.isPlayable) {
+    console.log('Game unplayable');
+    return;
+  }
+  do {
+    winner = game.playATurnCommand(randomInt(6), randomInt(10));
+    game.selectNextPlayerCommand();
+  } while (!winner);
+}

@@ -4,20 +4,18 @@ exports.gameRunner = void 0;
 var game_1 = require("./game");
 function gameRunner(randomInt) {
     // a simulator of a game
-    var notAWinner = false;
+    var winner = false;
     var game = new game_1.Game();
-    game.add('Chet');
-    game.add('Pat');
-    game.add('Sue');
+    game.addPlayerCommand('Chet');
+    game.addPlayerCommand('Pat');
+    game.addPlayerCommand('Sue');
+    if (!game.isPlayable) {
+        console.log('Game unplayable');
+        return;
+    }
     do {
-        game.roll(randomInt(6));
-        if (randomInt(10) == 7) {
-            notAWinner = game.wrongAnswer();
-        }
-        else {
-            notAWinner = game.wasCorrectlyAnswered();
-        }
-    } while (notAWinner);
+        winner = game.playATurnCommand(randomInt(6), randomInt(10));
+        game.selectNextPlayerCommand();
+    } while (!winner);
 }
 exports.gameRunner = gameRunner;
-;

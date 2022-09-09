@@ -1,7 +1,8 @@
-export type QuestionType = 'rock' | 'science' | 'sport' | 'pop';
+// Value Object
+export type QuestionType = 'Rock' | 'Science' | 'Sports' | 'Pop';
 export class QuestionAggregate {
   name: string;
   constructor(public type: QuestionType, public id: number) {
-    this.name = `${this.type} question number ${this.id}`;
+    this.name = `${this.type} Question ${this.id}`;
   }
 }
